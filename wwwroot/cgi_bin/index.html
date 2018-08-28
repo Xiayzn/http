@@ -1,0 +1,19 @@
+<html>
+    <head>
+        <meta http-equiv="content-type" content="text/html;charset=utf-8">
+    </head>
+    <body>
+    <!-- action 的含义是使用哪个CGI程序完成动态页面的生成 取自己对应的路径-->
+    <h3>请输入两个数字：</h3>
+    <!-- 在 form action 中如果不写方法，默认为 GET-->
+    <form action="/cgi_bin/test" method="GET">
+        a:<br>
+        <input type="text" name="a" value="10">
+        <br>
+        b:<br>
+        <input type="text" name="b" value="20">
+        <br><br>
+        <input type="submit" value="计算">
+    </form> 
+    </body>
+</html>
