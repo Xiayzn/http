@@ -6,6 +6,54 @@
 #include<string.h>
 #include "cgi_base.h"
 
+#define BURSIZE 2048
+
+int hex2dec(char c)
+{
+	if ('0' <= c && c <= '9')
+	{
+		return c - '0';
+	}
+	else if ('a' <= c && c <= 'f')
+	{
+		return c - 'a' + 10;
+	}
+	else if ('A' <= c && c <= 'F')
+	{
+		return c - 'A' + 10;
+	}
+	else
+	{
+		return -1;
+	}
+}
+
+void urldecode(char url[])
+{
+	int i = 0;
+	int len = strlen(url);
+	int res_len = 0;
+	char res[BURSIZE];
+	for (i = 0; i < len; ++i)
+	{
+		char c = url[i];
+		if (c != '%')
+		{
+			res[res_len++] = c;
+		}
+		else
+		{
+			char c1 = url[++i];
+			char c0 = url[++i];
+			int num = 0;
+			num = hex2dec(c1) * 16 + hex2dec(c0);
+			res[res_len++] = num;
+		}
+	}
+	res[res_len] = '\0';
+	strcpy(url, res);
+}
+
 int Split(char input[], char* split_char, char* output[],
 	int output_size){
 	//使用 strtok — 字符串切割函数 实现的 Split ，但使用的时候需要循环调用.
@@ -23,8 +71,8 @@ int Split(char input[], char* split_char, char* output[],
 	return i;
 }
 
-int ParseQueryString(char querystring[], char** factory_name, int* ItemNo,
-                          char** color, int* packages_number){
+int ParseQueryString(char querystring[], char* factory_name[], int* ItemNo,
+                          char* color[], int* packages_number){
 	//把 querystring 按照字符串进行切分
 	char* tok[15];
 	//把 querystring 按照 & = 进行字符串切分
@@ -36,11 +84,15 @@ int ParseQueryString(char querystring[], char** factory_name, int* ItemNo,
 			fprintf(stderr, "Split failed! tok_size=%d\n", tok_size);//打印错误日志
 			return -1;//表示切分失败                             
 	}
+  urldecode(tok[1]);
+  urldecode(tok[5]);
 	*factory_name = tok[1];
 	*ItemNo = atoi(tok[3]);
-  *color = tok[5];
+  *color = tok[5]; 
   *packages_number = atoi(tok[7]);
 
+  //fprintf(stderr, "factory_name = %s\n", *factory_name);
+  //fprintf(stderr, "color = %s\n", *color);
 	return 0;
 }
 
@@ -52,11 +104,11 @@ int main(){
         return 1;
     }
     // 约定客户端传递过来的参数格式：id=123&name=hehe
-    char factory_name[1024] = {0};              
+    char* factory_name = NULL;              
     int ItemNo = 0;                           
-    char color[1024] = {0};
+    char* color = NULL;
     int packages_number = 0;
-    ParseQueryString(buf, (char** )&factory_name, &ItemNo, (char** )&color, &packages_number);  
+    ParseQueryString(buf, &factory_name, &ItemNo, &color, &packages_number);  
     fprintf(stderr, "[CGI] factory_name=%s ItemNo=%d color=%s packages_number=%d \n", 
         factory_name, ItemNo, color, packages_number);
     /////////////////////////////////////////////////
@@ -93,7 +145,6 @@ int main(){
         //   ...
     }
     fprintf(stderr, "mysql connect ok!\n");
-    MYSQL* character_set_ret =  mysql_set_character_set(&connect_fd, "utf8");
 
     // 2. 拼接sql语句
     //    组织命令
