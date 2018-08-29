@@ -146,9 +146,14 @@ int main(){
     }
     fprintf(stderr, "mysql connect ok!\n");
 
+    mysql_set_character_set(connect_fd, "utf8");
+
     // 2. 拼接sql语句
     //    组织命令
     char sql[1024 * 4] = {0};
+    fprintf(stderr, "[CGI22] factory_name=%s ItemNo=%d color=%s packages_number=%d \n", 
+        factory_name, ItemNo, color, packages_number);
+    
     sprintf(sql,
         "insert into Manifest(factory_name, ItemNo, color, packages_number) values('%s', %d, '%s', %d)",
         factory_name, ItemNo, color, packages_number);//期望用户通过浏览器插入数据

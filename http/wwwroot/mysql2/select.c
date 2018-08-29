@@ -51,9 +51,11 @@ int main(){
     }
     fprintf(stderr, "mysql connect ok!\n");
 
+    mysql_set_character_set(connect_fd, "utf8");
+
     // 2. 拼接sql语句
     //    组织命令
-    const char* sql = "select * from goods";
+    const char* sql = "select * from Manifest";
 
     // 3. 把sql语句发送到服务器
     //    使用遥控器把命令发给服务器
