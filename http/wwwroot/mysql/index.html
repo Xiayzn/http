@@ -1,0 +1,155 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+		<meta charset="utf-8">
+		<link href="css/style.css" rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		
+		<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+		<!--<style type="text/css">
+            .left-form, .right-form {
+            float: left;
+            margin: 18px 100px;
+            width: 40%;
+            }
+			
+		</style>-->
+		<style class="mian">
+		#main{
+            position:relative;
+            width:100%;
+            height:80px;
+            background-color:#eee;
+            text-align:center;
+            overflow:hidden;
+        }
+        #main .donul {
+            float:left;
+            position:relative;
+            left:50%;
+        }
+        #main .donul li{
+            position:relative;
+            right:50%;
+            float:left;
+            margin:10px;
+            padding:0 10px;
+            border:solid 1px #000;
+            line-height:60px;
+        }
+        .main h2, .main h3 {
+            text-align: left; 
+        }
+		</style>
+		<style class="left-form">
+		.left-form, .right-form {
+             float: left;
+             margin: 22px 28px;
+        }
+		</style>
+		<!--webfonts-->
+		<!--//webfonts-->
+</head>
+<body>
+	<div class="main">
+		<div class="header" >
+			<h1>货款插入查询表单</h1>
+		</div>
+		<p>正确格式如下：[厂家][货号][颜色][件数]</p>
+			<form action="/mysql/insert" method="GET">
+			<div id = "dondiv">
+				<ul  class="left-form">
+					<h2>[新表单]New Payment:</h2>
+					<h2>厂家:</h2>
+					<li>
+						<input type="text"   name="Manufacturer" value="朱" required/>
+						<a href="#" class="icon ticker"> </a>
+						<div class="clear"> </div>
+					</li> 
+					<h2>货号:</h2>
+					<li>
+						<input type="text"   name="ItemNo"  value="9808" required/>
+						<a href="#" class="icon ticker"> </a>
+						<div class="clear"> </div>
+					</li> 
+					<h2>颜色:</h2>
+					<li>
+						<input type="text"   name="Color"   value="红色"  required/>
+						<a href="#" class="icon ticker"> </a>
+						<!--<a href="#" class="icon into"> </a>-->
+						<div class="clear"> </div>
+					</li> 
+					<h2>件数:</h2>
+					<li>
+						<input type="text"   name="NumberOfPackages"   value="100"  required/>
+						<a href="#" class="icon ticker"> </a>
+						<!--<a href="#" class="icon into"> </a>-->
+						<div class="clear"> </div>
+					</li> 
+					<!--<label class="checkbox"><input type="checkbox" name="checkbox" checked=""><i> </i>Please inform me of upcoming  w3layouts, Promotions and news</label>-->
+                    <input type="submit" onClick="myFunction()" value="确认提交">
+						<div class="clear"> </div>
+				</ul>
+				
+				<form action="/mysql/select_accuracy" method="GET">
+				</form>
+				
+				<form action="/mysql/select_accuracy" method="GET">
+				<ul class="right-form">
+					<h2>精确查询:</h2>
+					<h2>厂家:</h2>
+					<div>
+						<li>
+						<input type="text"   name="Manufacturer" value="朱" required/>
+						<div class="clear"> </div>
+					    </li> 
+					<h2>货号:</h2>
+					<div>
+						<li>
+						<input type="text"   name="Manufacturer" value="9808" required/>
+						<div class="clear"> </div>
+					    </li> 
+						<h4>Please, enter correct!</h4>
+						<input type="submit" onClick="myFunction()" value="查询" >
+					</div>
+					<div class="clear"> </div>
+				</ul>
+				</form>
+				
+				<form action="/mysql/select_query" method="GET">
+				</form>
+				
+				<form action="/mysql/select_query" method="GET">
+				<ul class="right-form">
+					<h2>选择查询:</h2>
+					<h2>厂家/货号:</h2>
+					<div>
+						<li>
+						<input type="text"   name="factory_name" value="朱/9808" required/>
+						<div class="clear"> </div>
+					    </li> 
+						<h4>Please, enter correct!</h4>
+						<input type="submit" onClick="myFunction()" value="查询" >
+					</div>
+					<div class="clear"> </div>
+				</ul>
+				</form>
+				
+				<div class="clear"> </div>
+					
+			</form>
+			
+			
+			
+		</div>
+			<!-----start-copyright---->
+   					<div class="copy-right">
+						<p>Copyright © 2018 Xiayzn. All rights Reserved.</p> 
+					</div>
+				<!-----//end-copyright---->
+
+	
+</body>
+</html>
